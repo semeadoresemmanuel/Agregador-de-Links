@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semeadores - Agregador de Links</title>
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description" content="Agregador de links oficial da comunidade Semeadores. Acesso rápido às ferramentas.">
+    
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Background -->
+    <div class="ambient-background"></div>
+
+    <!-- Outer Content Wrapper -->
+    <div class="aggregator-wrapper">
+        <!-- Main Card (The Box) -->
+        <main class="aggregator-card" id="mainCard">
+            <!-- Profile Header -->
+            <header class="profile-header">
+                <div class="logo-wrapper">
+                    <img src="assets/logo.svg" alt="Logo" class="profile-logo" id="profileLogo">
+                </div>
+            </header>
+
+            <!-- Links Stack Section -->
+            <section class="links-stack" aria-label="Links Úteis">
+                <!-- Link 1: Caixa de Sugestões -->
+                <a href="https://cssemeadores.vercel.app/" class="link-button" aria-label="Abrir Caixa de Sugestões">
+                    <img src="assets/caixadesugestoes.svg" alt="Caixa de Sugestões" class="btn-svg-icon">
+                </a>
+
+                <!-- Link 2: Cronograma -->
+                <a href="https://csemeadores.vercel.app/" class="link-button" aria-label="Abrir Cronograma">
+                    <img src="assets/cronograma.svg" alt="Cronograma" class="btn-svg-icon">
+                </a>
+
+                <!-- Link 3: Hinário -->
+                <a href="https://hsemeadores.vercel.app/" class="link-button" aria-label="Abrir Hinário">
+                    <img src="assets/hinario.svg" alt="Hinário" class="btn-svg-icon">
+                </a>
+            </section>
+        </main>
+
+        <!-- Footer (Outside and Below the Box) -->
+        <footer class="profile-footer">
+            <div class="copyright-wrapper">
+                <img src="assets/copyright.svg" alt="Copyright" class="copyright-icon">
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script for mobile click animation feedback -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.link-button');
+            buttons.forEach(button => {
+                // Instantly play bounce animation on touchstart
+                button.addEventListener('touchstart', function() {
+                    this.classList.add('button-bounce');
+                }, { passive: true });
+
+                // Remove the animation class once touch ends or cancels
+                button.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.classList.remove('button-bounce');
+                    }, 200);
+                }, { passive: true });
+
+                button.addEventListener('touchcancel', function() {
+                    this.classList.remove('button-bounce');
+                }, { passive: true });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "semeadores-agregador",
+  "version": "1.0.0",
+  "description": "Agregador de Links Semeadores",
+  "scripts": {
+    "dev": "python -m http.server 8000"
+  }
+}
