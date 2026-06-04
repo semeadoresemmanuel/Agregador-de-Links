@@ -63,7 +63,7 @@ body {
 
 .aggregator-card {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.12;
     display: flex;
     flex-direction: column;
     justify-content: center;
