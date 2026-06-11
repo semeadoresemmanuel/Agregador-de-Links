@@ -8,7 +8,6 @@
     /* Color Palette */
     --bg-dark: #002400;
     --bg-card: #002400;
-    --accent-neon: #00cc00;
     --accent-neon-glow: rgba(0, 252, 0, 0.4);
     --accent-neon-dim: rgba(0, 204, 0, 0.15);
     --text-primary: #ffffff;
@@ -18,7 +17,6 @@
     --btn-border-radius: 14px;
     --btn-height: 42px;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --font-primary: 'Outfit', sans-serif;
 }
 
 /* Reset & Base Styles */
@@ -39,7 +37,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: var(--bg-dark);
-    font-family: var(--font-primary);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: var(--text-primary);
     overflow: hidden;
     display: flex;
@@ -69,8 +67,6 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(0, 204, 0, 0.25);
     border-radius: var(--card-border-radius);
     box-shadow: 
@@ -182,28 +178,32 @@ body {
     transition: var(--transition-smooth);
 }
 
-/* Button Hover State - Zoom & Glow */
-.link-button:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 8px var(--accent-neon-glow));
+/* Button Hover State - Zoom & Glow (Only for devices that support hover) */
+@media (hover: hover) {
+    .link-button:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 8px var(--accent-neon-glow));
+    }
 }
 
 /* Button Click/Tap State for Mobile - Bounce/Jump */
 @keyframes mobileBounce {
     0% {
         transform: scale(1);
+        filter: drop-shadow(0 0 0px rgba(0, 252, 0, 0)) drop-shadow(0 0 0px rgba(0, 252, 0, 0));
     }
     50% {
         transform: scale(1.12);
-        filter: drop-shadow(0 0 12px var(--accent-neon-glow));
+        filter: drop-shadow(0 0 10px rgba(0, 252, 0, 1)) drop-shadow(0 0 25px rgba(0, 252, 0, 0.8));
     }
     100% {
-        transform: scale(1.05);
+        transform: scale(1);
+        filter: drop-shadow(0 0 0px rgba(0, 252, 0, 0)) drop-shadow(0 0 0px rgba(0, 252, 0, 0));
     }
 }
 
 .link-button.button-bounce {
-    animation: mobileBounce 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: mobileBounce 0.12s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 /* ================= FOOTER ================= */

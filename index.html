@@ -7,13 +7,17 @@
     <!-- Meta Descriptions for SEO -->
     <meta name="description" content="Agregador de links oficial da comunidade Semeadores. Acesso rápido às ferramentas.">
     
-    <!-- Google Fonts for Modern Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
     <!-- Main Style Sheet -->
     <link rel="stylesheet" href="index.css">
+
+    <!-- Web App Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#002400">
+
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -57,28 +61,51 @@
         </footer>
     </div>
 
-    <!-- Script for mobile click animation feedback -->
+    <!-- Script for mobile/desktop click animation feedback -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const buttons = document.querySelectorAll('.link-button');
             buttons.forEach(button => {
-                // Instantly play bounce animation on touchstart
-                button.addEventListener('touchstart', function() {
+                // Instantly play bounce animation on click/touch
+                button.addEventListener('pointerdown', function() {
                     this.classList.add('button-bounce');
-                }, { passive: true });
+                });
 
-                // Remove the animation class once touch ends or cancels
-                button.addEventListener('touchend', function() {
+                // Remove the animation class once click/touch ends or leaves
+                button.addEventListener('pointerup', function() {
                     setTimeout(() => {
                         this.classList.remove('button-bounce');
-                    }, 200);
-                }, { passive: true });
+                    }, 120);
+                });
 
-                button.addEventListener('touchcancel', function() {
+                button.addEventListener('pointercancel', function() {
                     this.classList.remove('button-bounce');
-                }, { passive: true });
+                });
+
+                button.addEventListener('pointerleave', function() {
+                    this.classList.remove('button-bounce');
+                });
             });
+
+            // Clean up any lingering animations when navigating away or returning (handling back/forward cache)
+            const clearAnimations = () => {
+                buttons.forEach(button => {
+                    button.classList.remove('button-bounce');
+                });
+            };
+            window.addEventListener('pageshow', clearAnimations);
+            window.addEventListener('pagehide', clearAnimations);
         });
+    </script>
+    <!-- Register Service Worker for PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrado com sucesso!', reg.scope))
+                    .catch(err => console.error('Falha ao registrar o Service Worker:', err));
+            });
+        }
     </script>
 </body>
 </html>
