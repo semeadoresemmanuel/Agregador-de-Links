@@ -1,8 +1,9 @@
-const CACHE_NAME = 'semeadores-cache-v2';
+const CACHE_NAME = 'semeadores-cache-v3';
 const ASSETS = [
     './',
     './index.html',
     './index.css',
+    './app.js',
     './manifest.json',
     './assets/favicon.svg',
     './assets/logo.svg',

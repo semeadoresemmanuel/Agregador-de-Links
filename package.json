@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "Agregador de Links Semeadores",
   "scripts": {
-    "dev": "python -m http.server 8001"
+    "dev": "npx -y serve -l 3000"
   }
 }

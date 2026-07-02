@@ -1,6 +1,6 @@
 {
-  "name": "Semeadores C.E.E.",
-  "short_name": "Semeadores C.E.E.",
+  "name": "Kit de Ferramentas Semeadores",
+  "short_name": "Kit Semeadores",
   "description": "Agregador de links oficial da comunidade Semeadores.",
   "start_url": "./index.html",
   "display": "standalone",

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semeadores C.E.E.</title>
+    <title>Kit de Ferramentas Semeadores</title>
     <!-- Meta Descriptions for SEO -->
     <meta name="description" content="Agregador de links oficial da comunidade Semeadores. Acesso rápido às ferramentas.">
     
@@ -23,37 +23,32 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
-    <!-- Outer Content Wrapper -->
     <div class="aggregator-wrapper">
-        <!-- Main Card (The Box) -->
         <main class="aggregator-card">
-            <!-- Profile Header -->
             <header class="profile-header">
                 <div class="logo-wrapper">
                     <img src="assets/logo.svg" alt="Logo" class="profile-logo">
                 </div>
             </header>
 
-            <!-- Links Stack Section -->
             <section class="links-stack" aria-label="Links Úteis">
                 <!-- Link 1: Caixa de Sugestões -->
-                <a href="https://cssemeadores.vercel.app/" class="link-button" aria-label="Abrir Caixa de Sugestões">
+                <a href="https://sowerssuggestionbox.vercel.app" class="link-button" aria-label="Abrir Caixa de Sugestões">
                     <img src="assets/caixadesugestoes.svg" alt="Caixa de Sugestões" class="btn-svg-icon">
                 </a>
 
                 <!-- Link 2: Cronograma -->
-                <a href="https://csemeadores.vercel.app/" class="link-button" aria-label="Abrir Cronograma">
+                <a href="https://sowerstimeline.vercel.app" class="link-button" aria-label="Abrir Cronograma">
                     <img src="assets/cronograma.svg" alt="Cronograma" class="btn-svg-icon">
                 </a>
 
                 <!-- Link 3: Hinário -->
-                <a href="https://hsemeadores.vercel.app/" class="link-button" aria-label="Abrir Hinário">
+                <a href="https://sowersdigitalhymnal.vercel.app" class="link-button" aria-label="Abrir Hinário">
                     <img src="assets/hinario.svg" alt="Hinário" class="btn-svg-icon">
                 </a>
             </section>
         </main>
 
-        <!-- Footer (Outside and Below the Box) -->
         <footer class="profile-footer">
             <div class="copyright-wrapper">
                 <img src="assets/copyright.svg" alt="Copyright" class="copyright-icon">
@@ -61,51 +56,6 @@
         </footer>
     </div>
 
-    <!-- Script for mobile/desktop click animation feedback -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.link-button');
-            buttons.forEach(button => {
-                // Instantly play bounce animation on click/touch
-                button.addEventListener('pointerdown', function() {
-                    this.classList.add('button-bounce');
-                });
-
-                // Remove the animation class once click/touch ends or leaves
-                button.addEventListener('pointerup', function() {
-                    setTimeout(() => {
-                        this.classList.remove('button-bounce');
-                    }, 120);
-                });
-
-                button.addEventListener('pointercancel', function() {
-                    this.classList.remove('button-bounce');
-                });
-
-                button.addEventListener('pointerleave', function() {
-                    this.classList.remove('button-bounce');
-                });
-            });
-
-            // Clean up any lingering animations when navigating away or returning (handling back/forward cache)
-            const clearAnimations = () => {
-                buttons.forEach(button => {
-                    button.classList.remove('button-bounce');
-                });
-            };
-            window.addEventListener('pageshow', clearAnimations);
-            window.addEventListener('pagehide', clearAnimations);
-        });
-    </script>
-    <!-- Register Service Worker for PWA -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker registrado com sucesso!', reg.scope))
-                    .catch(err => console.error('Falha ao registrar o Service Worker:', err));
-            });
-        }
-    </script>
+    <script src="app.js" defer></script>
 </body>
 </html>
