@@ -1,4 +1,4 @@
-const CACHE_NAME = 'semeadores-cache-v3';
+const CACHE_NAME = 'semeadores-cache-v4';
 const ASSETS = [
     './',
     './index.html',
@@ -15,50 +15,59 @@ const ASSETS = [
     './assets/icon-512.png'
 ];
 
-// Install event - caching assets
+// Instalação do Service Worker - pré-carregamento de assets no cache
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                return cache.addAll(ASSETS);
-            })
-            .then(() => self.skipWaiting())
+        (async () => {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.addAll(ASSETS);
+            await self.skipWaiting();
+        })()
     );
 });
 
-// Activate event - cleaning up old caches
+// Ativação do Service Worker - limpeza de caches antigos
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
+        (async () => {
+            const cacheNames = await caches.keys();
+            await Promise.all(
                 cacheNames.map(cache => {
                     if (cache !== CACHE_NAME) {
                         return caches.delete(cache);
                     }
                 })
             );
-        }).then(() => self.clients.claim())
+            await self.clients.claim();
+        })()
     );
 });
 
-// Fetch event - Stale-While-Revalidate caching strategy
+// Estratégia Stale-While-Revalidate para requisições GET locais
 self.addEventListener('fetch', event => {
+    // Intercepta apenas requisições GET para a mesma origem
+    if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
+        return;
+    }
+
     event.respondWith(
-        caches.match(event.request)
-            .then(cachedResponse => {
-                if (cachedResponse) {
-                    // Fetch in background to update the cache
-                    fetch(event.request).then(networkResponse => {
-                        if (networkResponse.status === 200) {
-                            caches.open(CACHE_NAME).then(cache => {
-                                cache.put(event.request, networkResponse);
-                            });
-                        }
-                    }).catch(() => {/* Ignore network failures when offline */});
-                    
-                    return cachedResponse;
-                }
-                return fetch(event.request);
-            })
+        (async () => {
+            const cachedResponse = await caches.match(event.request);
+
+            const fetchPromise = fetch(event.request)
+                .then(async networkResponse => {
+                    if (networkResponse && networkResponse.status === 200) {
+                        const cache = await caches.open(CACHE_NAME);
+                        cache.put(event.request, networkResponse.clone());
+                    }
+                    return networkResponse;
+                })
+                .catch(() => {
+                    /* Ignora falhas de rede em modo offline */
+                });
+
+            return cachedResponse || fetchPromise;
+        })()
     );
 });
+

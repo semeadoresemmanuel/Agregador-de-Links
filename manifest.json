@@ -2,21 +2,26 @@
   "name": "Kit de Ferramentas Semeadores",
   "short_name": "Kit Semeadores",
   "description": "Agregador de links oficial da comunidade Semeadores.",
+  "id": "/",
+  "scope": "./",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#002400",
   "theme_color": "#002400",
   "orientation": "portrait-primary",
+  "categories": ["utilities", "lifestyle"],
   "icons": [
     {
       "src": "assets/icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "assets/icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     },
     {
       "src": "assets/logo.svg",

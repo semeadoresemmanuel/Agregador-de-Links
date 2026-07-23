@@ -1,42 +1,59 @@
-document.addEventListener('DOMContentLoaded', () => {
+'use strict';
+
+/**
+ * Agregador de Links Semeadores - Script Principal
+ */
+
+const initApp = () => {
     const buttons = document.querySelectorAll('.link-button');
+
     buttons.forEach(button => {
-        // Instantly play bounce animation on click/touch
-        button.addEventListener('pointerdown', function() {
-            this.classList.add('button-bounce');
-        });
+        // Ativa animação de bounce instantaneamente ao tocar/clicar
+        button.addEventListener('pointerdown', () => {
+            button.classList.add('button-bounce');
+        }, { passive: true });
 
-        // Remove the animation class once click/touch ends or leaves
-        button.addEventListener('pointerup', function() {
-            setTimeout(() => {
-                this.classList.remove('button-bounce');
-            }, 120);
-        });
+        // Remove a classe de animação após a conclusão da interação
+        button.addEventListener('pointerup', () => {
+            setTimeout(() => button.classList.remove('button-bounce'), 120);
+        }, { passive: true });
 
-        button.addEventListener('pointercancel', function() {
-            this.classList.remove('button-bounce');
-        });
-
-        button.addEventListener('pointerleave', function() {
-            this.classList.remove('button-bounce');
-        });
-    });
-
-    // Clean up any lingering animations when navigating away or returning
-    const clearAnimations = () => {
-        buttons.forEach(button => {
+        button.addEventListener('pointercancel', () => {
             button.classList.remove('button-bounce');
-        });
-    };
-    window.addEventListener('pageshow', clearAnimations);
-    window.addEventListener('pagehide', clearAnimations);
-});
+        }, { passive: true });
 
-// Register Service Worker for PWA
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('Service Worker registrado!', reg.scope))
-            .catch(err => console.error('Falha ao registrar SW:', err));
+        button.addEventListener('pointerleave', () => {
+            button.classList.remove('button-bounce');
+        }, { passive: true });
     });
+
+    // Limpa animações pendentes ao navegar ou mudar de aba
+    const clearAnimations = () => {
+        buttons.forEach(button => button.classList.remove('button-bounce'));
+    };
+
+    window.addEventListener('pageshow', clearAnimations, { passive: true });
+    window.addEventListener('pagehide', clearAnimations, { passive: true });
+};
+
+// Registra o Service Worker para suporte PWA offline
+const registerServiceWorker = async () => {
+    if (!('serviceWorker' in navigator)) return;
+
+    try {
+        const registration = await navigator.serviceWorker.register('./sw.js');
+        console.log('[PWA] Service Worker registrado com sucesso! Escopo:', registration.scope);
+    } catch (error) {
+        console.error('[PWA] Falha ao registrar o Service Worker:', error);
+    }
+};
+
+// Inicialização principal
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
 }
+
+window.addEventListener('load', registerServiceWorker);
+
