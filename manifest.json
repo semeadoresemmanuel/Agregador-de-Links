@@ -1,10 +1,10 @@
 {
   "name": "Kit de Ferramentas Semeadores",
-  "short_name": "",
+  "short_name": "Kit Semeadores",
   "description": "Agregador de links oficial da comunidade Semeadores.",
   "id": "/",
-  "scope": "./",
-  "start_url": "./index.html",
+  "start_url": "/",
+  "scope": "/",
   "display": "fullscreen",
   "display_override": ["fullscreen", "standalone"],
   "background_color": "#002400",

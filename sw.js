@@ -1,73 +1,63 @@
-const CACHE_NAME = 'semeadores-cache-v5';
+const CACHE_NAME = 'semeadores-cache-v6';
 const ASSETS = [
-    './',
-    './index.html',
-    './index.css',
-    './app.js',
-    './manifest.json',
-    './assets/favicon.svg',
-    './assets/logo.svg',
-    './assets/caixadesugestoes.svg',
-    './assets/cronograma.svg',
-    './assets/hinario.svg',
-    './assets/copyright.svg',
-    './assets/icon-192.png',
-    './assets/icon-512.png'
+    '/',
+    '/index.html',
+    '/index.css',
+    '/app.js',
+    '/manifest.json',
+    '/assets/favicon.svg',
+    '/assets/logo.svg',
+    '/assets/caixadesugestoes.svg',
+    '/assets/cronograma.svg',
+    '/assets/hinario.svg',
+    '/assets/copyright.svg',
+    '/assets/icon-192.png',
+    '/assets/icon-512.png'
 ];
 
-// Instalação do Service Worker - pré-carregamento de assets no cache
+// Instalação do Service Worker - pré-carregamento dos assets no cache
 self.addEventListener('install', event => {
     event.waitUntil(
-        (async () => {
-            const cache = await caches.open(CACHE_NAME);
-            await cache.addAll(ASSETS);
-            await self.skipWaiting();
-        })()
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(ASSETS))
+            .then(() => self.skipWaiting())
     );
 });
 
 // Ativação do Service Worker - limpeza de caches antigos
 self.addEventListener('activate', event => {
     event.waitUntil(
-        (async () => {
-            const cacheNames = await caches.keys();
-            await Promise.all(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
                 cacheNames.map(cache => {
                     if (cache !== CACHE_NAME) {
                         return caches.delete(cache);
                     }
                 })
             );
-            await self.clients.claim();
-        })()
+        }).then(() => self.clients.claim())
     );
 });
 
-// Estratégia Stale-While-Revalidate para requisições GET locais
+// Estratégia de Fetch segura: tenta responder do cache ou busca da rede sem falhar a resposta
 self.addEventListener('fetch', event => {
-    // Intercepta apenas requisições GET para a mesma origem
-    if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
-        return;
-    }
+    if (event.request.method !== 'GET') return;
 
     event.respondWith(
-        (async () => {
-            const cachedResponse = await caches.match(event.request);
-
-            const fetchPromise = fetch(event.request)
-                .then(async networkResponse => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const cache = await caches.open(CACHE_NAME);
-                        cache.put(event.request, networkResponse.clone());
+        caches.match(event.request).then(cachedResponse => {
+            if (cachedResponse) {
+                // Atualização do cache em segundo plano
+                fetch(event.request).then(networkResponse => {
+                    if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                        const responseToCache = networkResponse.clone();
+                        caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseToCache));
                     }
-                    return networkResponse;
-                })
-                .catch(() => {
-                    /* Ignora falhas de rede em modo offline */
-                });
+                }).catch(() => {/* offline fallback */});
 
-            return cachedResponse || fetchPromise;
-        })()
+                return cachedResponse;
+            }
+            return fetch(event.request);
+        })
     );
 });
 
