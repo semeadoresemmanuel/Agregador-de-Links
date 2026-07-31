@@ -1,18 +1,18 @@
-const CACHE_NAME = 'semeadores-cache-v8';
+const CACHE_NAME = 'semeadores-cache-v9';
 const ASSETS = [
-    '/',
-    '/index.html',
-    '/index.css',
-    '/app.js',
-    '/manifest.json',
-    '/assets/favicon.svg',
-    '/assets/logo.svg',
-    '/assets/caixadesugestoes.svg',
-    '/assets/cronograma.svg',
-    '/assets/hinario.svg',
-    '/assets/copyright.svg',
-    '/assets/icon-192.png',
-    '/assets/icon-512.png'
+    './',
+    './index.html',
+    './index.css',
+    './app.js',
+    './manifest.json',
+    './assets/favicon.svg',
+    './assets/logo.svg',
+    './assets/caixadesugestoes.svg',
+    './assets/cronograma.svg',
+    './assets/hinario.svg',
+    './assets/copyright.svg',
+    './assets/icon-192.png',
+    './assets/icon-512.png'
 ];
 
 // Instalação do Service Worker - pré-carregamento dos assets no cache
