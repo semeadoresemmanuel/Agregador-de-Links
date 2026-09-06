@@ -28,23 +28,35 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html {
+html,
+body {
     width: 100%;
-    min-height: 100dvh;
+    height: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
 }
 
 body {
-    width: 100%;
-    min-height: 100dvh;
     background-color: var(--bg-dark);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px 16px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    padding: env(safe-area-inset-top, 24px) env(safe-area-inset-right, 16px) env(safe-area-inset-bottom, 24px) env(safe-area-inset-left, 16px);
 }
 
 /* ================= LAYOUT & CONTAINERS ================= */
@@ -52,7 +64,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 480px;
+    max-width: min(480px, calc((100dvh - 50px) / 1.12));
     margin: 0 auto;
     align-items: center;
     position: relative;
@@ -78,14 +90,10 @@ body {
     animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Desktop Glassmorphic Frame Effect */
-@media (min-width: 600px) {
+/* Desktop & Tablet Otimizado */
+@media (min-width: 600px) and (min-height: 600px) {
     :root {
         --btn-height: 52px;
-    }
-
-    body {
-        padding: 40px 0;
     }
 
     .aggregator-card {
@@ -140,10 +148,6 @@ body {
     will-change: filter;
 }
 
-.logo-wrapper:hover {
-    filter: drop-shadow(0 0 6px var(--accent-neon-glow));
-}
-
 .profile-logo {
     width: 60px;
     height: 60px;
@@ -182,15 +186,23 @@ body {
     transition: var(--transition-smooth);
 }
 
-/* Button Hover State - Zoom & Glow (Only for devices that support hover) */
+/* Estados de Hover para dispositivos que suportam cursor */
 @media (hover: hover) {
+    .logo-wrapper:hover {
+        filter: drop-shadow(0 0 6px var(--accent-neon-glow));
+    }
+
     .link-button:hover {
         transform: scale(1.05);
         filter: drop-shadow(0 0 8px var(--accent-neon-glow));
     }
+
+    .copyright-wrapper:hover {
+        filter: drop-shadow(0 0 6px var(--accent-neon-glow));
+    }
 }
 
-/* Button Click/Tap State for Mobile - Bounce/Jump */
+/* Animação de Toque/Clique Instantâneo (Mobile & Desktop) */
 @keyframes mobileBounce {
     0% {
         transform: scale(1);
@@ -222,10 +234,6 @@ body {
     max-width: 95px;
     transition: var(--transition-smooth);
     will-change: filter;
-}
-
-.copyright-wrapper:hover {
-    filter: drop-shadow(0 0 6px var(--accent-neon-glow));
 }
 
 .copyright-icon {

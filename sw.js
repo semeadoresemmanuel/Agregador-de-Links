@@ -1,4 +1,4 @@
-const CACHE_NAME = 'semeadores-cache-v9';
+const CACHE_NAME = 'semeadores-cache-v10';
 const ASSETS = [
     './',
     './index.html',
@@ -15,7 +15,7 @@ const ASSETS = [
     './assets/icon-512.png'
 ];
 
-// Instalação do Service Worker - pré-carregamento dos assets no cache
+// Instalação: pré-carrega todos os ativos essenciais
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -24,7 +24,7 @@ self.addEventListener('install', event => {
     );
 });
 
-// Ativação do Service Worker - limpeza de caches antigos
+// Ativação: remove versões antigas do cache e assume controle imediato
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
@@ -39,24 +39,38 @@ self.addEventListener('activate', event => {
     );
 });
 
-// Estratégia de Fetch segura: tenta responder do cache ou busca da rede sem falhar a resposta
+// Estratégia Stale-While-Revalidate com fallback offline garantido
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
+    if (!event.request.url.startsWith('http')) return;
 
     event.respondWith(
-        caches.match(event.request).then(cachedResponse => {
+        caches.match(event.request, { ignoreSearch: true }).then(cachedResponse => {
+            // Se estiver no cache, retorna imediatamente e atualiza em segundo plano se houver conexão
             if (cachedResponse) {
-                // Atualização do cache em segundo plano
                 fetch(event.request).then(networkResponse => {
-                    if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                    if (networkResponse && networkResponse.status === 200 && (networkResponse.type === 'basic' || networkResponse.type === 'cors')) {
                         const responseToCache = networkResponse.clone();
                         caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseToCache));
                     }
-                }).catch(() => {/* offline fallback */});
+                }).catch(() => {/* offline silencioso */});
 
                 return cachedResponse;
             }
-            return fetch(event.request);
+
+            // Não encontrado no cache: busca na rede e armazena
+            return fetch(event.request).then(networkResponse => {
+                if (networkResponse && networkResponse.status === 200 && (networkResponse.type === 'basic' || networkResponse.type === 'cors')) {
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseToCache));
+                }
+                return networkResponse;
+            }).catch(() => {
+                // Se offline e requisição de navegação, retorna a página inicial em cache
+                if (event.request.mode === 'navigate') {
+                    return caches.match('./index.html') || caches.match('./');
+                }
+            });
         })
     );
 });

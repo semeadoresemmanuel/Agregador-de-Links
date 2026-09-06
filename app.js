@@ -48,12 +48,17 @@ const registerServiceWorker = async () => {
     }
 };
 
-// Inicialização principal
+// Inicialização da interface
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
 } else {
     initApp();
 }
 
-window.addEventListener('load', registerServiceWorker);
+// Registro seguro do Service Worker para PWA offline
+if (document.readyState === 'complete') {
+    registerServiceWorker();
+} else {
+    window.addEventListener('load', registerServiceWorker);
+}
 

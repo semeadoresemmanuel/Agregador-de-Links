@@ -2,9 +2,11 @@
   "name": "Kit Semeadores",
   "short_name": "Semeadores",
   "description": "Agregador de links oficial da comunidade Semeadores.",
-  "id": "/",
-  "start_url": "/",
-  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
   "display": "fullscreen",
   "display_override": ["fullscreen", "standalone"],
   "background_color": "#002400",
@@ -22,13 +24,13 @@
       "src": "assets/icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "assets/icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
