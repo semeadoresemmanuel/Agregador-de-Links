@@ -6,7 +6,6 @@
 :root {
     /* Color Palette */
     --bg-dark: #002400;
-    --bg-card: #002400;
     --accent-neon-glow: rgba(0, 252, 0, 0.4);
     --accent-neon-dim: rgba(0, 204, 0, 0.15);
     --text-primary: #ffffff;
@@ -26,27 +25,6 @@
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    min-height: 100dvh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: none;
-    -webkit-user-select: none;
-    user-select: none;
-    touch-action: manipulation;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-/* Barras de rolagem invisíveis em todos os motores (WebKit, Gecko, Blink) */
-* {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
 }
@@ -55,6 +33,19 @@ body {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
 }
 
 body {
@@ -85,7 +76,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--bg-card);
+    background: var(--bg-dark);
     border: 1px solid rgba(0, 204, 0, 0.25);
     border-radius: var(--card-border-radius);
     box-shadow: 
@@ -146,8 +137,6 @@ body {
 
 .logo-wrapper {
     position: relative;
-    width: auto;
-    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -184,6 +173,12 @@ body {
     position: relative;
     text-decoration: none;
     will-change: transform, filter;
+}
+
+.link-button:focus-visible {
+    outline: 2px solid #00fc00;
+    outline-offset: 4px;
+    filter: drop-shadow(0 0 8px var(--accent-neon-glow));
 }
 
 .btn-svg-icon {
