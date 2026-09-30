@@ -1,0 +1,31 @@
+{
+  "id": "./",
+  "short_name": "Cronograma",
+  "name": "Cronograma Semeadores",
+  "description": "Cronograma de Encontros e Tarefas - Semeadores",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "orientation": "portrait",
+  "background_color": "#F7F7F7",
+  "theme_color": "#F7F7F7",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

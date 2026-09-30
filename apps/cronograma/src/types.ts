@@ -1,0 +1,18 @@
+export type ItemType = 'task' | 'event';
+
+export interface CalendarItem {
+  id: string;
+  title: string;
+  date: Date;
+  type: ItemType;
+  category?: 'checklist' | 'responsavel' | 'orientacao';
+  startTime?: string;
+  endTime?: string;
+  description?: string;
+  modalidade?: string;
+  order?: number;
+  cover?: string;
+}
+
+export type Tab = 'cronograma' | 'tarefas';
+export type ViewMode = 'DAY' | 'MONTH' | 'YEAR';
