@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg-color: #f7f7f7;
+  --card-bg: #f7f7f7;
+  --primary-color: #009C00;
+  --primary-glow: rgba(0, 156, 0, 0.05);
+  --border-color: #009C00;
+  --text-dim: rgba(0, 156, 0, 0.6);
+  --input-bg: #f7f7f7;
+  --text-main: #121212;
+  --shadow-glow: 0 0 15px rgba(0, 156, 0, 0.6);
+  --btn-shadow: 0 0 25px rgba(0, 156, 0, 0.4);
+  --submit-shadow: 0 0 30px rgba(0, 156, 0, 0.7);
+  --submit-btn-text: #121212;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --card-bg: #121212;
+  --primary-color: #00cc00;
+  --primary-glow: rgba(0, 204, 0, 0.1);
+  --border-color: #00cc00;
+  --text-dim: rgba(0, 204, 0, 0.6);
+  --input-bg: #121212;
+  --text-main: #F7F7F7;
+  --shadow-glow: 0 0 15px rgba(0, 204, 0, 0.6);
+  --btn-shadow: 0 0 25px rgba(0, 204, 0, 0.4);
+  --submit-shadow: 0 0 30px rgba(0, 204, 0, 0.7);
+  --submit-btn-text: #F7F7F7;
+}
+
+/* Ocultação global de barras de rolagem (preserva funcionalidade de rolagem) */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+body {
+  background: var(--bg-color);
+  background-image: radial-gradient(circle at center, var(--primary-glow) 0%, transparent 100%);
+  color: var(--primary-color);
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+*:focus, *:focus-visible {
+  outline: none !important;
+}
+
+[contentEditable]:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+  opacity: 0.2;
+}
+
+ul, ol {
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul {
+  list-style-type: disc !important;
+  list-style-position: outside;
+  padding-left: 0.95rem;
+}
+
+ol {
+  list-style-type: decimal !important;
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+li {
+  display: list-item !important;
+  color: var(--text-main);
+}
+
+ul li::marker {
+  color: var(--primary-color);
+  font-size: 1.1em;
+}
+
+ol li::marker {
+  color: var(--primary-color);
+  font-size: 0.95em;
+  font-weight: bold;
+}
+
+/* Melhoria na visibilidade do Negrito */
+b, strong {
+  font-weight: 800 !important;
+  color: var(--text-main);
+  text-shadow: 0 0 1px var(--primary-glow);
+}
+
+[data-theme='dark'] b, [data-theme='dark'] strong {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.rich-text-content b, .rich-text-content strong {
+  color: var(--primary-color);
+}
+
+/* Estilo para o marcador do WhatsApp no editor */
+.wa-marker {
+  color: var(--primary-color) !important;
+  font-weight: normal !important;
+}
+
