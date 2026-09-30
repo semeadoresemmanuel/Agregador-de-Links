@@ -1,11 +1,15 @@
 {
-  "name": "semeadores-agregador",
+  "name": "ferramentas-semeadores",
   "version": "1.0.0",
-  "description": "Agregador de Links Semeadores",
+  "description": "Ferramentas Semeadores",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "npx -y serve -l 3000",
-    "start": "npx -y serve -l 3000"
+    "start": "npx -y serve -l 3000",
+    "build": "node scripts/build-all.js",
+    "build:sugestoes": "npm --prefix apps/sugestoes run build",
+    "build:cronograma": "npm --prefix apps/cronograma run build",
+    "build:hinario": "npm --prefix apps/hinario run build"
   }
 }

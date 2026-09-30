@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Agregador de Links Semeadores - Script Principal
+ * Ferramentas Semeadores - Script Principal
  */
 
 const initApp = () => {

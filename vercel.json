@@ -1,4 +1,5 @@
 {
+  "buildCommand": "node scripts/build-all.js",
   "cleanUrls": true,
   "headers": [
     {
