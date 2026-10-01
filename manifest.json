@@ -1,7 +1,7 @@
 {
-  "name": "Ferramentas Semeadores",
+  "name": "Kit Semeadores",
   "short_name": "Semeadores",
-  "description": "Ferramentas Semeadores - Acesso unificado ao Cronograma, Hinário Digital e Caixa de Sugestões.",
+  "description": "Agregador de links oficial da comunidade Semeadores.",
   "lang": "pt-BR",
   "dir": "ltr",
   "id": "./",
