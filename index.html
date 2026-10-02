@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Kit de Ferramentas Semeadores</title>
+    <meta name="description" content="Agregador de links oficial da comunidade Semeadores. Acesso rápido às ferramentas.">
+    
+    <!-- Folha de Estilos Principal -->
+    <link rel="stylesheet" href="index.css?v=24">
+
+    <!-- Script de Inicialização Rápida de Tema (Evita FOUC: Padrão Modo Claro) -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('semeadores-theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                if (savedTheme === 'dark') {
+                    const meta = document.getElementById('meta-theme-color');
+                    if (meta) meta.setAttribute('content', '#121212');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F7F7F7" id="meta-theme-color">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- Suporte PWA / Tela Cheia Mobile -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kit Semeadores">
+    <meta name="application-name" content="Kit Semeadores">
+    <meta name="msapplication-TileColor" content="#F7F7F7">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+
+    <!-- Favicon Unificado -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body>
+    <div class="aggregator-wrapper">
+        <main class="aggregator-card">
+            <header class="profile-header">
+                <div class="logo-wrapper">
+                    <img src="assets/logo.svg" alt="Logo Semeadores" class="profile-logo" width="60" height="60" decoding="async" fetchpriority="high">
+                </div>
+            </header>
+
+            <section class="links-stack" aria-label="Links Úteis">
+                <!-- Link 1: Caixa de Sugestões -->
+                <div class="link-item">
+                    <img src="assets/arrow.svg" alt="" class="select-arrow" aria-hidden="true" width="16" height="18">
+                    <a href="https://caixadesugestoessemeadores.vercel.app" class="link-button" aria-label="Abrir Caixa de Sugestões">
+                        <img src="assets/caixadesugestoes.svg" alt="Caixa de Sugestões" class="btn-svg-icon" width="109" height="26" decoding="async">
+                    </a>
+                </div>
+
+                <!-- Link 2: Cronograma -->
+                <div class="link-item">
+                    <img src="assets/arrow.svg" alt="" class="select-arrow" aria-hidden="true" width="16" height="18">
+                    <a href="https://cronogramasemeadores.vercel.app" class="link-button" aria-label="Abrir Cronograma">
+                        <img src="assets/cronograma.svg" alt="Cronograma" class="btn-svg-icon" width="86" height="26" decoding="async">
+                    </a>
+                </div>
+
+                <!-- Link 3: Hinário -->
+                <div class="link-item">
+                    <img src="assets/arrow.svg" alt="" class="select-arrow" aria-hidden="true" width="16" height="18">
+                    <a href="https://hinariodigitalsemeadores.vercel.app" class="link-button" aria-label="Abrir Hinário">
+                        <img src="assets/hinario.svg" alt="Hinário" class="btn-svg-icon" width="64" height="26" decoding="async">
+                    </a>
+                </div>
+            </section>
+
+            <!-- Alternador de Tema (Centralizado na Parte Inferior do Retângulo) -->
+            <div class="theme-toggle-wrapper">
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar tema de cores" title="Alternar tema">
+                    <img src="assets/lightmode.svg" alt="Modo Claro" class="theme-toggle-icon icon-light" width="28" height="28" decoding="async">
+                    <img src="assets/darkmode.svg" alt="Modo Escuro" class="theme-toggle-icon icon-dark" width="28" height="28" decoding="async">
+                </button>
+            </div>
+        </main>
+
+        <footer class="profile-footer">
+            <div class="footer-info">
+                <div class="copyright-wrapper">
+                    <img src="assets/copyright.svg" alt="Copyright" class="copyright-icon" width="11" height="11" decoding="async" loading="lazy">
+                    <span class="copyright-text">2026 SEMEADORES</span>
+                </div>
+                <span class="footer-subtext">C.E. EMMANUEL</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js?v=24" defer></script>
+</body>
+</html>
