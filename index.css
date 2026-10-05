@@ -1,14 +1,23 @@
 /* ==========================================
    CSS DESIGN SYSTEM - SEMEADORES
    Dark Mode: Background #121212, Contorno #F7F7F7
-   Light Mode: Background #F7F7F7, Contorno #121212, Ícones #121212
+   Light Mode: Background #F7F7F7, Contorno #121212
    ========================================== */
 
-/* Fonte Lemon Milk */
+/* Fonte Lemon Milk - Regular */
 @font-face {
     font-family: 'Lemon Milk';
-    src: url('assets/font/Lemon%20Milk.otf') format('opentype');
-    font-weight: normal;
+    src: url('assets/font/Lemon%20Milk%20-%20Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Fonte Lemon Milk - Bold */
+@font-face {
+    font-family: 'Lemon Milk';
+    src: url('assets/font/Lemon%20Milk%20-%20Bold.otf') format('opentype');
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
@@ -18,6 +27,10 @@
     --bg-main: #F7F7F7;
     --border-contour: #121212;
     --text-primary: #121212;
+    --pill-bg: #121212;
+    --pill-text: #F7F7F7;
+    --pill-circle-bg: #F7F7F7;
+    --color-theme: #009900;
 
     /* Efeito de brilho moderado no contorno do retângulo (Light Mode) */
     --card-glow: 
@@ -29,12 +42,9 @@
     --bounce-glow-1: rgba(18, 18, 18, 0.75);
     --bounce-glow-2: rgba(18, 18, 18, 0.35);
 
-    /* Converte ícones brancos (#f7f7f7/#ffffff) para exatamente #121212 */
-    --icon-filter: brightness(0) invert(7.06%);
-
     /* Layout & Tokens de Estilo */
     --card-border-radius: 24px;
-    --btn-border-radius: 14px;
+    --btn-border-radius: 9999px;
     --btn-height: 42px;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --theme-transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
@@ -45,6 +55,10 @@
     --bg-main: #F7F7F7;
     --border-contour: #121212;
     --text-primary: #121212;
+    --pill-bg: #121212;
+    --pill-text: #F7F7F7;
+    --pill-circle-bg: #F7F7F7;
+    --color-theme: #009900;
 
     --card-glow: 
         0 0 10px rgba(18, 18, 18, 0.22),
@@ -54,7 +68,6 @@
     --hover-glow: rgba(18, 18, 18, 0.3);
     --bounce-glow-1: rgba(18, 18, 18, 0.75);
     --bounce-glow-2: rgba(18, 18, 18, 0.35);
-    --icon-filter: brightness(0) invert(7.06%);
 }
 
 /* Modo Escuro */
@@ -62,6 +75,10 @@
     --bg-main: #121212;
     --border-contour: #F7F7F7;
     --text-primary: #F7F7F7;
+    --pill-bg: #F7F7F7;
+    --pill-text: #121212;
+    --pill-circle-bg: #121212;
+    --color-theme: #00cc00;
 
     /* Efeito de brilho moderado no contorno do retângulo (Dark Mode) */
     --card-glow: 
@@ -72,9 +89,6 @@
     --hover-glow: rgba(247, 247, 247, 0.45);
     --bounce-glow-1: rgba(247, 247, 247, 0.9);
     --bounce-glow-2: rgba(247, 247, 247, 0.45);
-
-    /* No Dark Mode mantém as cores nativas (#f7f7f7 / #ffffff) */
-    --icon-filter: none;
 }
 
 /* Reset & Base Styles */
@@ -89,10 +103,14 @@
     -ms-overflow-style: none !important;
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar,
+*::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
+    background: transparent !important;
 }
 
 html,
@@ -106,6 +124,8 @@ body {
     -webkit-user-select: none;
     user-select: none;
     touch-action: manipulation;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
 }
 
 body {
@@ -152,7 +172,7 @@ body {
 /* Desktop & Tablet Otimizado */
 @media (min-width: 600px) and (min-height: 600px) {
     :root {
-        --btn-height: 52px;
+        --btn-height: 48px;
     }
 
     .aggregator-card {
@@ -168,18 +188,38 @@ body {
         gap: 20px;
     }
 
+    .link-button {
+        width: fit-content;
+        padding: 0 22px 0 8px;
+        gap: 12px;
+    }
+
+    .pill-circle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .pill-icon {
+        width: 23px;
+        height: 23px;
+    }
+
+    .pill-label {
+        font-size: 11.5px;
+    }
+
     .select-arrow {
         width: 13px;
         height: 14.5px;
-        right: calc(100% + 22px);
+        right: calc(100% + 16px);
     }
 
-    .theme-toggle-icon.icon-dark {
+    .theme-toggle-icon.icon-moon {
         width: 27px;
         height: 27px;
     }
 
-    .theme-toggle-icon.icon-light {
+    .theme-toggle-icon.icon-sun {
         width: 33px;
         height: 33px;
     }
@@ -221,8 +261,7 @@ body {
     width: 60px;
     height: 60px;
     object-fit: contain;
-    filter: var(--icon-filter);
-    transition: var(--transition-smooth), filter 0.3s ease;
+    transition: var(--transition-smooth);
 }
 
 /* ================= LINKS STACK & SELECTION ARROW ================= */
@@ -245,7 +284,7 @@ body {
 
 .select-arrow {
     position: absolute;
-    right: calc(100% + 18px);
+    right: calc(100% + 14px);
     top: 50%;
     transform: translateY(-50%);
     width: 12px;
@@ -253,8 +292,7 @@ body {
     object-fit: contain;
     opacity: 0;
     pointer-events: none;
-    filter: var(--icon-filter);
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-item.selected .select-arrow,
@@ -268,19 +306,23 @@ body {
     outline: none !important;
 }
 
+/* Recreated Pill Button */
 .link-button {
+    width: fit-content;
+    max-width: 100%;
     height: var(--btn-height);
-    width: auto;
+    background: var(--pill-bg);
+    border-radius: var(--btn-border-radius);
     cursor: pointer;
     outline: none !important;
     transition: var(--transition-smooth);
-    border-radius: var(--btn-border-radius);
-    padding: 0;
+    padding: 0 18px 0 7px;
     display: inline-flex;
-    justify-content: center;
     align-items: center;
+    gap: 10px;
     position: relative;
     text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     will-change: transform, filter;
 }
 
@@ -290,12 +332,33 @@ body {
     filter: drop-shadow(0 0 8px var(--hover-glow));
 }
 
-.btn-svg-icon {
-    height: 100%;
-    width: auto;
+.pill-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--pill-circle-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+.pill-icon {
+    width: 21px;
+    height: 21px;
+    object-fit: contain;
     display: block;
-    filter: var(--icon-filter);
-    transition: var(--transition-smooth), filter 0.3s ease;
+}
+
+.pill-label {
+    font-family: 'Lemon Milk', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--pill-text);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    transition: color 0.3s ease;
 }
 
 /* ================= ALTERNADOR DE TEMA ================= */
@@ -338,35 +401,36 @@ body {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.theme-toggle-icon.icon-dark {
+.theme-toggle-icon.icon-moon {
     width: 25px;
     height: 25px;
 }
 
-.theme-toggle-icon.icon-light {
+.theme-toggle-icon.icon-sun {
     width: 31px;
     height: 31px;
 }
 
+/* Alternância de Ativos por Tema */
+:root:not([data-theme="dark"]) .theme-dark,
+[data-theme="light"] .theme-dark {
+    display: none !important;
+}
+
+[data-theme="dark"] .theme-light {
+    display: none !important;
+}
+
 /* Regras de visibilidade dos ícones de tema:
-   - Light Mode (padrão): exibe darkmode.svg (#121212)
-   - Dark Mode: exibe lightmode.svg (#f7f7f7) */
-:root .icon-dark,
-[data-theme="light"] .icon-dark {
-    display: block !important;
-}
-
-:root .icon-light,
-[data-theme="light"] .icon-light {
+   - Light Mode (padrão): exibe moon.svg (#121212)
+   - Dark Mode: exibe sun.svg (#f7f7f7) */
+:root:not([data-theme="dark"]) .icon-sun,
+[data-theme="light"] .icon-sun {
     display: none !important;
 }
 
-[data-theme="dark"] .icon-dark {
+[data-theme="dark"] .icon-moon {
     display: none !important;
-}
-
-[data-theme="dark"] .icon-light {
-    display: block !important;
 }
 
 /* Estados de Hover para dispositivos que suportam cursor */
@@ -452,8 +516,6 @@ body {
     height: 11px;
     display: block;
     object-fit: contain;
-    filter: var(--icon-filter);
-    transition: filter 0.3s ease;
 }
 
 .copyright-text {
@@ -461,7 +523,7 @@ body {
     font-size: 11px;
     line-height: 1;
     letter-spacing: 0.05em;
-    color: var(--text-primary);
+    color: var(--color-theme);
     transition: color 0.3s ease;
     white-space: nowrap;
 }
@@ -471,7 +533,7 @@ body {
     font-size: 8.5px;
     line-height: 1;
     letter-spacing: 0.06em;
-    color: var(--text-primary);
+    color: var(--color-theme);
     transition: color 0.3s ease;
     white-space: nowrap;
     text-align: right;

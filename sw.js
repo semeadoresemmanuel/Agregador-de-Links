@@ -1,4 +1,4 @@
-const CACHE_NAME = 'semeadores-v24';
+const CACHE_NAME = 'semeadores-v27';
 const ASSETS = [
     './',
     './index.html',
@@ -6,25 +6,37 @@ const ASSETS = [
     './app.js',
     './manifest.json',
     './assets/favicon.svg',
-    './assets/logo.svg',
-    './assets/arrow.svg',
-    './assets/caixadesugestoes.svg',
-    './assets/cronograma.svg',
-    './assets/hinario.svg',
-    './assets/copyright.svg',
-    './assets/darkmode.svg',
-    './assets/lightmode.svg',
-    './assets/font/Lemon Milk.otf',
     './assets/icon-192.png',
-    './assets/icon-512.png'
+    './assets/icon-512.png',
+    './assets/moon.svg',
+    './assets/sun.svg',
+    './assets/font/Lemon Milk - Bold.otf',
+    './assets/font/Lemon Milk - Regular.otf',
+    './assets/darkmode/caixadesugestoes.svg',
+    './assets/darkmode/cronograma.svg',
+    './assets/darkmode/hinario.svg',
+    './assets/darkmode/logo.svg',
+    './assets/darkmode/selector.svg',
+    './assets/darkmode/copyright.svg',
+    './assets/lightmode/caixadesugestoes.svg',
+    './assets/lightmode/cronograma.svg',
+    './assets/lightmode/hinario.svg',
+    './assets/lightmode/logo.svg',
+    './assets/lightmode/selector.svg',
+    './assets/lightmode/copyright.svg'
 ];
 
 // Instalação: armazena em cache todos os ativos essenciais e pula espera
 self.addEventListener('install', event => {
     self.skipWaiting();
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(ASSETS))
+        caches.open(CACHE_NAME).then(cache => {
+            return Promise.all(
+                ASSETS.map(asset => cache.add(asset).catch(err => {
+                    console.warn('[SW] Aviso ao pré-cachear:', asset, err);
+                }))
+            );
+        })
     );
 });
 
